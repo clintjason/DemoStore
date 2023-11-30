@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import './App.css'
-import VendorsLoader from './VendorsLoader';
 import { Route, Routes } from 'react-router-dom';
 import HomeLayout from './layouts/Home';
 import ProductLayout from './layouts/Product';

@@ -18,13 +18,6 @@ interface Location {
   photo: string;
 }
 
-interface Respon {
-  // Define the shape of the data returned by the GraphQL query
-  data:{ locations: Location[]};
-  loading: boolean; 
-  networkStatus: number;
-}
-
 interface Data {
   locations: Location[]
 }
