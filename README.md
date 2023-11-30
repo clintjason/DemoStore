@@ -10,7 +10,7 @@ npm install
 npm run dev
 
 ### Website Links ###
-Link to the Website: https://appointment-scheduler-ruby.vercel.app/
+Link to the Website: https://demo-store-git-main-ngassajason-gmailcom.vercel.app/
 
 Link to the Code: https://github.com/clintjason/DemoStore.git
 
