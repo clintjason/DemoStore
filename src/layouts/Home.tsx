@@ -3,6 +3,8 @@ import pic1 from '../assets/images/pic02.jpg'
 import { MouseEventHandler, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { useEffect } from 'react';
+import SelectComponent from '../components/SelectComponent';
+
 interface ProductType {
   id: string;
   name: string;
@@ -14,10 +16,14 @@ interface ProductType {
   updatedAt: string;
 }
 
-interface Data {
-  getAllProducts: ProductType[]
+interface getAllProductsProps {
+  totalCount: number;
+  products: ProductType[];
 }
 
+interface Data {
+  getAllProducts: getAllProductsProps;
+}
 const HomeLayout = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
@@ -27,17 +33,20 @@ const HomeLayout = () => {
   const GET_ALL_PRODUCTS = gql`
   query ($page: Int, $limit: Int) {
     getAllProducts (page: $page, limit: $limit) {
-      id
-      name
-      description
-      imageUrl
-      amount
-      currency
-      createdAt
-      updatedAt
+      totalCount
+      products {
+        id
+        name
+        description
+        imageUrl
+        amount
+        currency
+        createdAt
+        updatedAt
+      }
     }
   }
-`;
+  `;
   //const { loading, error, data } : {loading: boolean, error?: any, data?: Data } = useQuery<Data>(GET_DATA);
   const { loading, data } : {loading: boolean, error?: any, data?: Data } = useQuery(GET_ALL_PRODUCTS, {
     variables: { page, limit },
@@ -45,13 +54,17 @@ const HomeLayout = () => {
 
   console.log("The Data in Home: ", data);
 
+  const products = data?.getAllProducts?.products;
+  const totalCount = data?.getAllProducts?.totalCount;
+  const totalPages = Math.ceil(totalCount  as number / limit)
+
   const next: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log("Next page");
-    if(data?.getAllProducts) {
+    if(products) {
       console.log("Seeing Next");
       setPage( pg => {
-        if(pg >= data?.getAllProducts.length - 1) return pg
+        if(pg >= products?.length - 1) return pg
         return pg + 1;
       });
     }
@@ -60,13 +73,18 @@ const HomeLayout = () => {
   const prev: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     console.log("in prev page");
-    if(data?.getAllProducts) {
+    if(products) {
       console.log("Seeing Prev");
       setPage( pg => {
-        if(pg <= 0) return pg
+        if(pg <= 1) return pg
         return pg - 1;
       });
     }
+  }
+
+  const handlePageChange = (value: number) => {
+    console.log(" The value choosed: ", value)
+    setPage(value)
   }
 
   useEffect(() => {
@@ -176,6 +194,10 @@ const HomeLayout = () => {
         <ProductList key={date} page={page} limit={limit} />
         {!loading && (
           <footer className="major">
+            <div className='pagin_pages'>
+              <p>{page} / {totalPages} Pages</p>
+              <SelectComponent maxValue={totalPages} onChange={handlePageChange} />
+            </div>
             <ul className="actions special">
               <li><button onClick={prev} className="button pagination_btn">Prev</button></li>
               <li><button onClick={next} className="button pagination_btn">Next</button></li>

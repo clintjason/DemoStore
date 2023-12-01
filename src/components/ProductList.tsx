@@ -13,8 +13,13 @@ interface ProductType {
   updatedAt: string;
 }
 
+interface getAllProductsProps {
+  totalCount: number;
+  products: ProductType[];
+
+}
 interface Data {
-  getAllProducts: ProductType[]
+  getAllProducts: getAllProductsProps;
 }
 
 interface Props {
@@ -28,14 +33,17 @@ const ProductList: React.FC<Props> = ({page, limit}) => {
 const GET_ALL_PRODUCTS = gql`
   query ($page: Int, $limit: Int) {
     getAllProducts (page: $page, limit: $limit) {
-      id
-      name
-      description
-      imageUrl
-      amount
-      currency
-      createdAt
-      updatedAt
+      totalCount
+      products {
+        id
+        name
+        description
+        imageUrl
+        amount
+        currency
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -43,6 +51,8 @@ const GET_ALL_PRODUCTS = gql`
   const { loading, error, data, refetch } : {loading: boolean, error?: any, data?: Data, refetch: any} = useQuery(GET_ALL_PRODUCTS, {
     variables: { page, limit },
   });
+
+  const products = data?.getAllProducts?.products;
 
   useEffect(() => {
     console.log("USE EFFECT PRODUCT LIST")
@@ -58,13 +68,13 @@ const GET_ALL_PRODUCTS = gql`
     return <div>Error: {error.message}</div>;
   }
 
-  if(data?.getAllProducts?.length == 0) {
+  if(products?.length == 0) {
     return <div>No Product List.</div>
   }
   // Access the data returned by the GraphQL query here and render your component accordingly
   return (
     <div className='product__wrapper'>
-      {data?.getAllProducts.map((product) => (
+      {products?.map((product) => (
         <Product key={product.id} product={product} />
       ))}
     </div>

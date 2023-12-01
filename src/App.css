@@ -3924,6 +3924,18 @@ input, select, textarea {
   margin-right: 10px;
 }
 
+.pagin_pages {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.pagin_select {
+  width: 120px;
+  height: 40px;
+}
 		@media screen and (max-width: 480px) {
 
 			#wrapper {
