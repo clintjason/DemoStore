@@ -76,9 +76,12 @@ const ProductLayout = () => {
       setProduct(data.createMultipleProducts[0]);
       setLoader(loading);
       setErrors(error);
+      setCreateStatus(status => status + 1);
     } catch (error) {
       // Handle the response data
       console.error(error);
+      setErrors(error);
+      setCreateStatus(status => status + 1);
       throw error;
     }
   }
@@ -93,15 +96,17 @@ const ProductLayout = () => {
           id: productId,
         },
       });
-      console.log('Product deleted data: ', data);
       // Handle the response data
-      console.log("Deleted product ID:", data.removeProduct.id);
       setDeletedProduct(data.removeProduct)
       setDeleteError(deletError)
       setDeleteLoader(deletLoader)
+      setDeleteStatus(status => status + 1)
+
     } catch (error) {
       // Handle the error
       console.error(error)
+      setDeleteError(error)
+      setDeleteStatus(status => status + 1)
       throw error;
     }
   }
@@ -129,8 +134,8 @@ const ProductLayout = () => {
         <ul className="actions special">
           <li><a onClick={handleCreateProduct} className="button add" style={{ color: 'white !important'}}>Create</a></li>
           <li><a href="#" className="button edit" style={{ color: 'white !important'}}>Edit</a></li>
-          {deleteLoader ? (<div className="sp">loading...</div>) :
-            deleteError ? (<div className="sp make_red">Error: {deleteError?.message}</div>) : (
+          {deleteLoader ? (<div key={deleteStatus} className="sp">loading...</div>) :
+            deleteError ? (<div key={deleteStatus} className="sp make_red">Error: {deleteError?.message}</div>) : (
             <li><a onClick={handleDeleteProduct} className="button danger" style={{ color: 'white !important'}}>Delete</a></li>
           )}
         </ul>
