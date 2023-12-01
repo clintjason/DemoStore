@@ -19,9 +19,7 @@ interface Data {
 
 const SingleProduct = () => {
   const { id } = useParams();
-  console.log("The product ID IS " + id)
   const productId = parseInt(id as string);
-  console.log("The typeof product ID IS ", typeof productId)
 
   const GET_A_PRODUCT = gql`
   query ($productId: Int!) {
@@ -61,7 +59,6 @@ const SingleProduct = () => {
       ) : (
         <div>No product found.</div>
       )}
-
     </div>
   );
 };

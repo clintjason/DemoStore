@@ -35,13 +35,13 @@ const Product: React.FC<ProductProps> = ({product}) => {
       </div>
       <div className="product-details">
         <span className="product-catagory">Generaal, nature</span>
-        <h4><a href="">{name}</a></h4>
+        <h4>{name}</h4>
         <p>{description}</p>
         <div className="product-bottom-details">
           <div className="product-price"><small>{initialPrice}</small>{amount} {currency}</div>
           <div className="product-links">
-            <a href="#"><i className="fa fa-heart"></i></a>
-            <a href="#"><i className="fa fa-shopping-cart"></i></a>
+            <span className='mr_10'><i className="fa fa-heart"></i></span>
+            <span><i className="fa fa-shopping-cart"></i></span>
           </div>
         </div>
       </div>

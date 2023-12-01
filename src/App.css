@@ -3910,6 +3910,20 @@ input, select, textarea {
   color: white;
 }
 
+.pagination_btn {
+  background-color: #935d8c !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.pagination_btn:hover {
+  filter: drop-shadow(0 0 0.3em #935d8c);
+}
+
+.mr_10 {
+  margin-right: 10px;
+}
+
 		@media screen and (max-width: 480px) {
 
 			#wrapper {
