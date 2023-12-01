@@ -3902,6 +3902,15 @@ input, select, textarea {
   filter: drop-shadow(0 0 0.3em #070c6aaa);
 }
 
+.add {
+  background-color: #374b43 !important;
+  color: white !important;
+}
+
+.add:hover {
+  filter: drop-shadow(0 0 0.3em #070c6aaa);
+}
+
 .product-links a:hover {
     color: #fbb72c;
 }
@@ -3935,6 +3944,34 @@ input, select, textarea {
 .pagin_select {
   width: 120px;
   height: 40px;
+}
+
+.message {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px auto 30px;
+  width: 350px;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.info {
+  background-color: #0000d8;
+}
+
+.warning {
+  background-color: red;
+}
+
+.close-button {
+  cursor: pointer;
+}
+
+.product__wrap {
+  display: grid;
+  justify-content: center;
 }
 		@media screen and (max-width: 480px) {
 

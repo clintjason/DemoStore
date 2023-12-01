@@ -56,6 +56,7 @@ const HomeLayout = () => {
 
   const products = data?.getAllProducts?.products;
   const totalCount = data?.getAllProducts?.totalCount;
+  console.log("The Total Count is: ", totalCount)
   const totalPages = Math.ceil(totalCount  as number / limit)
 
   const next: MouseEventHandler<HTMLButtonElement> = (e) => {
